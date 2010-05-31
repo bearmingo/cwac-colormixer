@@ -3,10 +3,13 @@ package com.commonsware.cwac.colormixer.demo;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.view.View;
 import com.commonsware.cwac.colormixer.ColorMixer;
+import com.commonsware.cwac.colormixer.ColorMixerDialog;
 
 public class ColorMixerDemo extends Activity {
 	private TextView color=null;
+	private ColorMixer mixer=null;	
 	
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -15,8 +18,7 @@ public class ColorMixerDemo extends Activity {
 		
 		color=(TextView)findViewById(R.id.color);
 		
-		ColorMixer mixer=(ColorMixer)findViewById(R.id.mixer);
-		
+		mixer=(ColorMixer)findViewById(R.id.mixer);
 		mixer.setOnColorChangedListener(onColorChange);
 	}
 	
@@ -26,4 +28,16 @@ public class ColorMixerDemo extends Activity {
 			color.setText(Integer.toHexString(argb));
 		}
 	};
+	
+	private ColorMixer.OnColorChangedListener onDialogSet=
+		new ColorMixer.OnColorChangedListener() {
+		public void onColorChange(int argb) {
+			mixer.setColor(argb);
+			color.setText(Integer.toHexString(argb));
+		}
+	};
+	
+	public void popDialog(View v) {
+		new ColorMixerDialog(this, mixer.getColor(), onDialogSet).show();
+	}
 }

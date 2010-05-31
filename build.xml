@@ -80,6 +80,9 @@
     </target>
     
     <target name="parcel" depends="prep,jar">
+        <delete>
+            <fileset dir="parcel" includes="**/*.zip"/>
+        </delete>
         <exec executable="parcel">
             <arg value="package" />
             <arg value="parcel.json" />

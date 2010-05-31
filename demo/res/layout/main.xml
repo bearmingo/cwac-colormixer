@@ -14,4 +14,11 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 	/>
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Pop ColorMixerDialog"
+		android:layout_marginTop="16dip"
+		android:onClick="popDialog"
+	/>
 </LinearLayout>

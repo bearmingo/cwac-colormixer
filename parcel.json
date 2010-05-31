@@ -1,7 +1,7 @@
 {
 "name": "cwac-colormixer",
 "description": "CWAC ColorMixer, a custom widget for allowing the user to pick a color",
-"version": "0.1.0",
+"version": "0.2.0",
 "maintainers": [
 		{
 			"name": "Mark Murphy",
