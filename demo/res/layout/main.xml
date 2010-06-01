@@ -21,4 +21,11 @@
 		android:layout_marginTop="16dip"
 		android:onClick="popDialog"
 	/>
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Edit Preferences"
+		android:layout_marginTop="16dip"
+		android:onClick="editPrefs"
+	/>
 </LinearLayout>

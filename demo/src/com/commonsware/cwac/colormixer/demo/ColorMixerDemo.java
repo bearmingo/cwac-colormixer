@@ -1,6 +1,7 @@
 package com.commonsware.cwac.colormixer.demo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.view.View;
@@ -39,5 +40,9 @@ public class ColorMixerDemo extends Activity {
 	
 	public void popDialog(View v) {
 		new ColorMixerDialog(this, mixer.getColor(), onDialogSet).show();
+	}
+	
+	public void editPrefs(View v) {
+		startActivity(new Intent(this, EditPreferences.class));
 	}
 }

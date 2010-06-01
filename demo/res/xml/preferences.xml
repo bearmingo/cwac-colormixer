@@ -1,0 +1,8 @@
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<com.commonsware.cwac.colormixer.ColorPreference
+		android:key="favoriteColor"
+		android:defaultValue="0xFFA4C639"
+		android:title="Your Favorite Color"
+		android:summary="Blue.  No yel--  Auuuuuuuugh!" />
+</PreferenceScreen>
