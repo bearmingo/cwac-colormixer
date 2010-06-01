@@ -11,6 +11,9 @@ to let the user mix red, green, and blue to pick an arbitrary color.
 It is not very big, so it is easy to fit on a form, and it is still
 fairly finger-friendly.
 
+It is also packaged as a dialog (`ColorMixerDialog`) and a
+preference (`ColorPreference`).
+
 This is available from [the Android Parcel Project](http://andparcel.com) as the
 `cwac-colormixer` parcel.
 
@@ -19,7 +22,7 @@ Usage
 Full instructions for using this module are forthcoming. Stay
 tuned!
 
-(though documentation can also be found in [*The Busy Coder's
+(though documentation on `ColorMixer` can also be found in [*The Busy Coder's
 Guide to Advanced Android Development*](http://commonsware.com/AdvAndroid))
 
 Dependencies
@@ -29,8 +32,8 @@ project-level resources.
 
 Version
 -------
-This is version 0.2 of this module, meaning it is pretty darn
-new, but getting more exercise.
+This is version 0.3 of this module, meaning it is creeping
+towards respectability.
 
 Demo
 ----
