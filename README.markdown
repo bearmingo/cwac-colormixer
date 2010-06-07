@@ -32,7 +32,7 @@ project-level resources.
 
 Version
 -------
-This is version 0.3.1 of this module, meaning it is creeping
+This is version 0.3.2 of this module, meaning it is creeping
 towards respectability.
 
 Demo

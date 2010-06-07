@@ -31,7 +31,7 @@ public class ColorMixerDialog extends AlertDialog
 	public ColorMixerDialog(Context ctxt,
 													int initialColor,
 													ColorMixer.OnColorChangedListener onSet) {
-    super(ctxt);
+		super(ctxt);
 		
 		this.initialColor=initialColor;
 		this.onSet=onSet;
@@ -44,7 +44,7 @@ public class ColorMixerDialog extends AlertDialog
 		setView(mixer);
 		setButton(ctxt.getText(parcel.getIdentifier("set", "string")),
 							this);
-    setButton2(ctxt.getText(parcel.getIdentifier("cancel", "string")),
+		setButton2(ctxt.getText(parcel.getIdentifier("cancel", "string")),
 							 (DialogInterface.OnClickListener)null);
   }
 	

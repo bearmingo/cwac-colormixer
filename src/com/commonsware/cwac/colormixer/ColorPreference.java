@@ -17,6 +17,7 @@ package com.commonsware.cwac.colormixer;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
@@ -25,37 +26,42 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import com.commonsware.cwac.colormixer.ColorMixer;
+import com.commonsware.cwac.parcel.ParcelHelper;
 
 
 public class ColorPreference extends DialogPreference {
 	private int lastColor=0;
-
-	public ColorPreference(Context ctxt, AttributeSet attrs) {
-			this(ctxt, attrs, 0);
-	}
+	private ColorMixer mixer=null;
 
 	public ColorPreference(Context ctxt) {
-			this(ctxt, null);
+		this(ctxt, null);
+	}
+
+	public ColorPreference(Context ctxt, AttributeSet attrs) {
+		this(ctxt, attrs, 0);
 	}
 
 	public ColorPreference(Context ctxt, AttributeSet attrs, int defStyle) {
-    super(ctxt, attrs, defStyle);
+		super(ctxt, attrs, defStyle);
+		
+		ParcelHelper parcel=new ParcelHelper("cwac-colormixer", ctxt);
+		
+		setPositiveButtonText(ctxt.getText(parcel.getIdentifier("set", "string")));
+    setNegativeButtonText(ctxt.getText(parcel.getIdentifier("cancel", "string")));
   }
 	
 	@Override
 	protected View onCreateDialogView() {
-		ColorMixer mixer=new ColorMixer(getContext());
-		
-		mixer.setOnColorChangedListener(onColorChange);
+		mixer=new ColorMixer(getContext());
 		
 		return(mixer);
 	}
 	
 	@Override
   protected void onBindDialogView(View v) {
-    super.onBindDialogView(v);
+		super.onBindDialogView(v);
 		
-    ((ColorMixer)v).setColor(lastColor);
+		mixer.setColor(lastColor);
   }
 	
 	@Override
@@ -63,8 +69,9 @@ public class ColorPreference extends DialogPreference {
 		super.onDialogClosed(positiveResult);
 
 		if (positiveResult) {
-			if (callChangeListener(lastColor)) {
-				setColor(lastColor);
+			if (callChangeListener(mixer.getColor())) {
+				lastColor=mixer.getColor();
+				persistInt(lastColor);
 			}
 		}
 	}
@@ -76,76 +83,6 @@ public class ColorPreference extends DialogPreference {
 
 	@Override
 	protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-		setColor(restoreValue ? getPersistedInt(lastColor) : (Integer)defaultValue);
-	}
-	
-	@Override
-	protected Parcelable onSaveInstanceState() {
-		final Parcelable superState=super.onSaveInstanceState();
-		
-		if (isPersistent()) {
-			// No need to save instance state since it's persistent
-			return(superState);
-		}
-
-		final SavedState myState=new SavedState(superState);
-		myState.color=lastColor;
-		
-		return(myState);
-	}
-
-	@Override
-	protected void onRestoreInstanceState(Parcelable state) {
-		if (state==null || !state.getClass().equals(SavedState.class)) {
-			// Didn't save state for us in onSaveInstanceState
-			super.onRestoreInstanceState(state);
-			return;
-		}
-
-		SavedState myState=(SavedState)state;
-		super.onRestoreInstanceState(myState.getSuperState());
-		setColor(myState.color);
-	}
-	
-	private void setColor(int color) {
-		lastColor=color;
-		persistInt(color);
-	}
-	
-	private ColorMixer.OnColorChangedListener onColorChange=
-		new ColorMixer.OnColorChangedListener() {
-		public void onColorChange(int argb) {
-			setColor(argb);
-		}
-	};
-	
-	private static class SavedState extends BaseSavedState {
-		int color;
-
-		public SavedState(Parcel source) {
-			super(source);
-			color=source.readInt();
-		}
-
-		@Override
-		public void writeToParcel(Parcel dest, int flags) {
-			super.writeToParcel(dest, flags);
-			dest.writeInt(color);
-		}
-
-		public SavedState(Parcelable superState) {
-			super(superState);
-		}
-
-		public static final Parcelable.Creator<SavedState> CREATOR =
-						new Parcelable.Creator<SavedState>() {
-			public SavedState createFromParcel(Parcel in) {
-				return(new SavedState(in));
-			}
-
-			public SavedState[] newArray(int size) {
-				return(new SavedState[size]);
-			}
-		};
+		lastColor=(restoreValue ? getPersistedInt(lastColor) : (Integer)defaultValue);
 	}
 }
