@@ -20,7 +20,7 @@ This is available from [the Android Parcel Project](http://andparcel.com) as the
 Usage
 -----
 
-### `ColorMixer`
+### ColorMixer
 
 `ColorMixer` is a simple widget. Given that you have the parcel
 installed in your project, or have manually merged the source
