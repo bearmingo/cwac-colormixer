@@ -19,11 +19,57 @@ This is available from [the Android Parcel Project](http://andparcel.com) as the
 
 Usage
 -----
-Full instructions for using this module are forthcoming. Stay
-tuned!
 
-(though documentation on `ColorMixer` can also be found in [*The Busy Coder's
-Guide to Advanced Android Development*](http://commonsware.com/AdvAndroid))
+### `ColorMixer`
+
+`ColorMixer` is a simple widget. Given that you have the parcel
+installed in your project, or have manually merged the source
+and resources into your project, you can add the widget to a
+layout like any other:
+
+	<com.commonsware.cwac.colormixer.ColorMixer
+		android:id="@+id/mixer"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+	/>
+
+You can call `getColor()` and `setColor()` to manipulate the
+color at runtime. You can also call `setOnColorChangedListener()`
+to register a `ColorMixer.OnColorChangedListener` object, which
+will be called with `onColorChanged()` when the color is altered
+by the user.
+
+### ColorMixerDialog
+
+`ColorMixerDialog` is an `AlertDialog` subclass. Hence, to create
+and show the dialog, all you need to do is create an instance
+and `show()` it:
+
+	new ColorMixerDialog(this, someColor, onDialogSet).show();
+
+In the above code snippet, `this` is a `Context` (e.g., an `Activity`),
+`someColor` is the color you want to start with, and `onDialogSet`
+is a `ColorMixer.OnColorChangedListener` that will be notified
+*if* the user clicks the "Set" button on the dialog *and* has
+changed the color from the initial value.
+
+### ColorPreference
+
+`ColorPreference` is a `Preference` class, to be referenced
+in preference XML and loaded into a `PreferenceActivity`. It
+has no attributes beyond the standard ones.
+
+	<PreferenceScreen
+		xmlns:android="http://schemas.android.com/apk/res/android">
+		<com.commonsware.cwac.colormixer.ColorPreference
+			android:key="favoriteColor"
+			android:defaultValue="0xFFA4C639"
+			android:title="Your Favorite Color"
+			android:summary="Blue.  No yel--  Auuuuuuuugh!" />
+	</PreferenceScreen>
+
+The preference is stored as an integer under the key you
+specify in the XML.
 
 Dependencies
 ------------
