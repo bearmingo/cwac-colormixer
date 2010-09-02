@@ -67,22 +67,22 @@ need to use the full package in your `<activity>` element,
 marking it as using `Theme.Dialog`.
 Here is one implementation, from the `demo/` project:
 
-  <activity android:name="com.commonsware.cwac.colormixer.ColorMixerActivity"
+	<activity android:name="com.commonsware.cwac.colormixer.ColorMixerActivity"
 					android:label="@string/app_name"
 					android:theme="@android:style/Theme.Dialog">
-  </activity>
+	</activity>
 
 In the `Intent` you use to start the activity, you can supply
 the starting color via a `ColorMixerActivity.COLOR` integer
 extra, and the dialog title via a `ColorMixerActivity.TITLE`
 string extra. For example:
 
-  Intent i=new Intent(this, ColorMixerActivity.class);
-
-  i.putExtra(ColorMixerActivity.TITLE, "Pick a Color");
-  i.putExtra(ColorMixerActivity.COLOR, mixer.getColor());
-
-  startActivityForResult(i, COLOR_REQUEST);
+	Intent i=new Intent(this, ColorMixerActivity.class);
+	
+	i.putExtra(ColorMixerActivity.TITLE, "Pick a Color");
+	i.putExtra(ColorMixerActivity.COLOR, mixer.getColor());
+	
+	startActivityForResult(i, COLOR_REQUEST);
 
 ### ColorPreference
 
