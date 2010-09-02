@@ -63,44 +63,33 @@
          build steps are used.
     -->
     <setup />
-    
-    <target name="jar" depends="compile">
-        <jar
-            destfile="bin/CWAC-ColorMixer.jar"
-            basedir="bin/classes"
-        />
-    </target>
-    
-    <target name="prep">
-        <exec executable="parcel">
-            <arg value="install" />
-            <arg value="cwac-parcel" />
-            <arg value="--replace" />
-        </exec>
-    </target>
-    
-    <target name="parcel" depends="prep,jar">
-        <delete>
-            <fileset dir="parcel" includes="**/*.zip"/>
-        </delete>
-        <exec executable="parcel">
-            <arg value="package" />
-            <arg value="parcel.json" />
-            <arg value="--dir" />
-            <arg value="parcel" />
-            <arg value="-j" />
-            <arg value="bin/CWAC-ColorMixer.jar" />
-            <arg value="-d" />
-            <arg value="README.markdown" />
-            <arg value="LICENSE" />
-        </exec>
+
+    <target name="dist-dir">
+        <mkdir dir="dist"/>
     </target>
 
-    <target name="lint">
-        <exec executable="parcel">
-            <arg value="lint" />
-            <arg value="parcel.json" />
-        </exec>
+    <target name="dist-full" depends="dist-dir">
+        <delete file="dist/CWAC-ColorMixer-full.zip" />
+        <zip destfile="dist/CWAC-ColorMixer-full.zip">
+            <zipfileset
+                dir="."
+                prefix="CWAC-ColorMixer"
+                includes="**"
+                excludes="bin/**, dist/**, gen/**, .git/**, .gitignore, demo/bin/**, demo/gen/**"
+            />
+        </zip>
     </target>
 
+    <target name="dist-lite" depends="dist-dir">
+        <delete file="dist/CWAC-ColorMixer-lite.zip" />
+        <zip destfile="dist/CWAC-ColorMixer-lite.zip">
+            <zipfileset
+                dir="."
+                prefix="CWAC-ColorMixer"
+                includes="**"
+                excludes="bin/**, dist/**, gen/**, .git/**, .gitignore, demo/**"
+            />
+        </zip>
+    </target>
+    
 </project>

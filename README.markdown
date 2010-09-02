@@ -11,11 +11,14 @@ to let the user mix red, green, and blue to pick an arbitrary color.
 It is not very big, so it is easy to fit on a form, and it is still
 fairly finger-friendly.
 
-It is also packaged as a dialog (`ColorMixerDialog`) and a
-preference (`ColorPreference`).
+It is also packaged as a dialog (`ColorMixerDialog`), a dialog-themed
+activity (`ColorMixerActivity`), and a preference (`ColorPreference`).
 
-This is available from [the Android Parcel Project](http://andparcel.com) as the
-`cwac-colormixer` parcel.
+This is distributed as an Android library project, following
+the conventions of [the Android Parcel Project](http://andparcel.com).
+You can download a ZIP file containing just the library project
+(sans sample code) from the Downloads section of this GitHub
+repository.
 
 Usage
 -----
@@ -53,6 +56,34 @@ is a `ColorMixer.OnColorChangedListener` that will be notified
 *if* the user clicks the "Set" button on the dialog *and* has
 changed the color from the initial value.
 
+### ColorMixerActivity
+
+`ColorMixerActivity` is a dialog-themed `Activity`. This is
+useful for situations where you want a dialog but do not want
+to deal with a dialog.
+
+To use it, add it as an activity to your project. You will
+need to use the full package in your `<activity>` element,
+marking it as using `Theme.Dialog`.
+Here is one implementation, from the `demo/` project:
+
+  <activity android:name="com.commonsware.cwac.colormixer.ColorMixerActivity"
+					android:label="@string/app_name"
+					android:theme="@android:style/Theme.Dialog">
+  </activity>
+
+In the `Intent` you use to start the activity, you can supply
+the starting color via a `ColorMixerActivity.COLOR` integer
+extra, and the dialog title via a `ColorMixerActivity.TITLE`
+string extra. For example:
+
+  Intent i=new Intent(this, ColorMixerActivity.class);
+
+  i.putExtra(ColorMixerActivity.TITLE, "Pick a Color");
+  i.putExtra(ColorMixerActivity.COLOR, mixer.getColor());
+
+  startActivityForResult(i, COLOR_REQUEST);
+
 ### ColorPreference
 
 `ColorPreference` is a `Preference` class, to be referenced
@@ -73,21 +104,19 @@ specify in the XML.
 
 Dependencies
 ------------
-This depends upon the `cwac-parcel` parcel for accessing
+This depends upon the `cwac-parcel` library for accessing
 project-level resources.
 
 Version
 -------
-This is version 0.3.3 of this module, meaning it is creeping
+This is version v0.4.0 of this module, meaning it is creeping
 towards respectability.
 
 Demo
 ----
-There is a `demo/` directory containing a demo project. If you
-have the Android Parcel Project client installed, you can
-run the `ant demo` command to install the requisite parcels into
-the demo project and install the resulting APK into your
-attached emulator or device.
+There is a `demo/` directory containing a demo project. It uses
+the library project itself to access the source code and
+resources of the `ColorMixer` library.
 
 License
 -------
@@ -100,6 +129,10 @@ Questions
 If you have questions regarding the use of this code, please
 join and ask them on the [cw-android Google Group][gg]. Be sure to
 indicate which CWAC module you have questions about.
+
+Release Notes
+-------------
+v0.4.0: converted to Android library project, added ColorMixerActivity
 
 Who Made This?
 --------------
