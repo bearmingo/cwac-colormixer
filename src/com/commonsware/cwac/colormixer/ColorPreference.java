@@ -33,23 +33,15 @@ public class ColorPreference extends DialogPreference {
 	private int lastColor=0;
 	private ColorMixer mixer=null;
 
-	public ColorPreference(Context ctxt) {
-		this(ctxt, null);
-	}
-
 	public ColorPreference(Context ctxt, AttributeSet attrs) {
-		this(ctxt, attrs, 0);
-	}
-
-	public ColorPreference(Context ctxt, AttributeSet attrs, int defStyle) {
-		super(ctxt, attrs, defStyle);
+		super(ctxt, attrs);
 		
 		ParcelHelper parcel=new ParcelHelper("cwac-colormixer", ctxt);
 		
 		setPositiveButtonText(ctxt.getText(parcel.getIdentifier("set", "string")));
     setNegativeButtonText(ctxt.getText(parcel.getIdentifier("cancel", "string")));
-  }
-	
+	}
+
 	@Override
 	protected View onCreateDialogView() {
 		mixer=new ColorMixer(getContext());
