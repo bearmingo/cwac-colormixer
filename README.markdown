@@ -109,7 +109,7 @@ project-level resources.
 
 Version
 -------
-This is version v0.4.0 of this module, meaning it is creeping
+This is version v0.4.1 of this module, meaning it is creeping
 towards respectability.
 
 Demo
@@ -132,6 +132,7 @@ indicate which CWAC module you have questions about.
 
 Release Notes
 -------------
+v0.4.1: fixed `ColorPreference` to work better on Honeycomb
 v0.4.0: converted to Android library project, added ColorMixerActivity
 
 Who Made This?
